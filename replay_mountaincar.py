@@ -20,13 +20,16 @@ def run(env):
     state_adj = (state - env.observation_space.low) * np.array([10, 100])
     state_adj = np.round(state_adj, 0).astype(int)
     image_list = []
+    total_reward = 0
     while not done and not truncated:
         img = env.render()
         image_list.append(img)
         action = np.argmax(Q[state_adj[0], state_adj[1]])
-        state, _, done, truncated, _ = env.step(action)
+        state, reward, done, truncated, _ = env.step(action)
         state_adj = (state - env.observation_space.low) * np.array([10,100])
         state_adj = (state_adj + 0.5).astype(int)
+        total_reward += reward
+    print(total_reward)
     return image_list
 image_list = run(env)
 

@@ -26,7 +26,7 @@ def QLearning(env, learning, discount, epsilon, min_eps, episodes):
     ave_reward_list = []
 
     # Calculate episodic reduction in epsilon
-    reduction = (epsilon - min_eps) / episodes
+    reduction = 0.999
 
     # Run Q learning algorithm
     for i in range(episodes):
@@ -75,8 +75,7 @@ def QLearning(env, learning, discount, epsilon, min_eps, episodes):
             state_adj = state2_adj
 
         # Decay epsilon
-        if epsilon > min_eps:
-            epsilon -= reduction
+        epsilon = reduction * epsilon + min_eps*(1 - reduction)
 
         # Track rewards
         reward_list.append(tot_reward)
@@ -87,14 +86,14 @@ def QLearning(env, learning, discount, epsilon, min_eps, episodes):
             reward_list = []
 
         if (i + 1) % 100 == 0:
-            print('Episode {} Average Reward: {}'.format(i + 1, ave_reward))
+            print(f'Episode {i + 1}, Average Reward: {ave_reward}, epsilon: {epsilon}')
 
     env.close()
     return ave_reward_list, Q
 
 
 # Run Q-learning algorithm
-rewards, Q = QLearning(env, 0.2, 0.9, 0.8, 0, 10_000)
+rewards, Q = QLearning(env, 0.2, 1., 1., 0.0, 10_000)
 np.save(f"weights-{datetime.datetime.now().isoformat(timespec='seconds')}", Q)
 # Plot Rewards
 plt.plot(100 * (np.arange(len(rewards)) + 1), rewards)
