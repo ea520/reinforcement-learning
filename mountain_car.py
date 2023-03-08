@@ -1,7 +1,7 @@
 import numpy as np
 import gym
 import matplotlib.pyplot as plt
-
+import datetime
 # Import and initialize Mountain Car Environment
 env = gym.make('MountainCar-v0')
 env.reset()
@@ -31,7 +31,7 @@ def QLearning(env, learning, discount, epsilon, min_eps, episodes):
     # Run Q learning algorithm
     for i in range(episodes):
         # Initialize parameters
-        done = False
+        done, truncated = False, False
         tot_reward, reward = 0, 0
         state, _ = env.reset()  # state as float
 
@@ -39,7 +39,7 @@ def QLearning(env, learning, discount, epsilon, min_eps, episodes):
         state_adj = (state - env.observation_space.low) * np.array([10, 100])
         state_adj = np.round(state_adj, 0).astype(int)
 
-        while done != True:
+        while not done and not truncated:
             # Render environment for last five episodes
             if i >= (episodes - 20):
                 env.render()
@@ -90,12 +90,12 @@ def QLearning(env, learning, discount, epsilon, min_eps, episodes):
             print('Episode {} Average Reward: {}'.format(i + 1, ave_reward))
 
     env.close()
-
-    return ave_reward_list
+    return ave_reward_list, Q
 
 
 # Run Q-learning algorithm
-rewards = QLearning(env, 0.2, 0.9, 0.8, 0, 5000)
+rewards, Q = QLearning(env, 0.2, 0.9, 0.8, 0, 10_000)
+np.save(f"weights-{datetime.datetime.now().isoformat(timespec='seconds')}", Q)
 # Plot Rewards
 plt.plot(100 * (np.arange(len(rewards)) + 1), rewards)
 plt.xlabel('Episodes')
