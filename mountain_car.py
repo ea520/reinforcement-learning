@@ -75,7 +75,7 @@ def QLearning(env, learning, discount, epsilon, min_eps, episodes):
             state_adj = state2_adj
 
         # Decay epsilon
-        epsilon = reduction * epsilon + min_eps*(1 - reduction)
+        epsilon = reduction * epsilon + min_eps * (1 - reduction)
 
         # Track rewards
         reward_list.append(tot_reward)
@@ -86,7 +86,8 @@ def QLearning(env, learning, discount, epsilon, min_eps, episodes):
             reward_list = []
 
         if (i + 1) % 100 == 0:
-            print(f'Episode {i + 1}, Average Reward: {ave_reward}, epsilon: {epsilon}')
+            print(
+                f'Episode {i + 1}, Average Reward: {ave_reward}, epsilon: {epsilon}')
 
     env.close()
     return ave_reward_list, Q

@@ -12,3 +12,20 @@ This command took 1 min to run and produced the following plot (reward is equal 
 
 A simulation of the mountain car is shown below:
 ![image](img/mountain_car.gif)
+
+## Car
+
+Task is to return a car to the origin in minimum time.
+The equations of motion of the car are:
+$$
+\begin{align*}
+\dot{v} &= u - c_d v|v|\\
+\dot{x} &= v 
+\end{align*}
+$$
+
+This was done with deep Q learning and example trajectories are shown below. Training took around 1 hour:
+
+![image](img/car.gif)
+![image](img/car2.gif)
+![image](img/car3.gif)
