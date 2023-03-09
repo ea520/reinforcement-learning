@@ -17,12 +17,10 @@ A simulation of the mountain car is shown below:
 
 Task is to return a car to the origin in minimum time.
 The equations of motion of the car are:
-$$
-\begin{align*}
-\dot{v} &= u - c_d v|v|\\
-\dot{x} &= v 
-\end{align*}
-$$
+
+$$\dot{v} = u - c_d v|v|$$
+
+$$\dot{x} = v $$
 
 This was done with deep Q learning and example trajectories are shown below. Training took around 1 hour:
 
