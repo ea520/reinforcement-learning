@@ -11,6 +11,7 @@ This command took 1 min to run and produced the following plot (reward is equal 
 ![image](img/rewards.jpg)
 
 A simulation of the mountain car is shown below:
+
 ![image](img/mountain_car.gif)
 
 ## Car
